@@ -1,21 +1,34 @@
-export default function decorate(block) {
-  // setup image columns
-  const cardContainerPrev = document.querySelector(".customblock.card.block");
-  cardContainerPrev.classList.add("card-container-wrapper");
+document.addEventListener("DOMContentLoaded", () => {
+  // Select the outer container
+  const section = document.querySelector(".section.newblock-container");
+  if (!section) return;
 
-  [...block.children].forEach((row, index) => {
-    row.classList.add("card-container");
-    const newEl = document.createElement("div");
-    newEl.textContent = `${index} repalced`;
-    // pictureEl.replaceWith(newEl);
-    [...row.children].forEach((col) => {
-      const pictureEl = row.querySelector("picture");
-      //   console.log(col.children.length, row.querySelector("picture"));
-      if (col.children.length === 1 && pictureEl) {
-        col.className = "customblock-card-image";
+  // Add a class to the section container
+  section.classList.add("styled-section");
+
+  // Select the wrapper
+  const wrapper = section.querySelector(".newblock-wrapper");
+  if (wrapper) {
+    wrapper.classList.add("styled-wrapper");
+  }
+
+  // Select the block
+  const block = wrapper.querySelector(".newblock.block");
+  if (block) {
+    block.classList.add("styled-block");
+  }
+
+  // Iterate over the rows (children of the block)
+  [...block.children].forEach((row, rowIndex) => {
+    row.classList.add("styled-row");
+
+    // Iterate over the columns in the row
+    [...row.children].forEach((col, colIndex) => {
+      if (colIndex === 0) {
+        col.classList.add("styled-title");
       } else {
-        col.className = "customblock-card-body";
+        col.classList.add("styled-content");
       }
     });
   });
-}
+});
